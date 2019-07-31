@@ -10,5 +10,8 @@ import {
      while (true) {
          const {groupId} = yield take(mutations.REQUEST_TASK_CREATION);
          console.log('got group id.. ', groupId) 
+         const ownerId = 'U1'
+         const taskId = uuid()
+         yield put(mutations.createTask(groupId, taskId, ownerId))
      }
  }

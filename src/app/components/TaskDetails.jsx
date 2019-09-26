@@ -12,34 +12,47 @@ const TaskDetails = ({
   setTaskCompletion,
   setTaskGroup,
   setTaskName
-}) => (
-  <div>
-    <div>
-      <input onChange={setTaskName} value={task.name} />
-    </div>
-    <div>
-      <button onClick={() => setTaskCompletion(id, !isComplete)}>
-        {isComplete ? `Reopen` : `Complete`}
-      </button>
-    </div>
+}) => {
+  return (
+    <div className="card p-3 col-6">
+      <div>
+        <input
+          onChange={setTaskName}
+          value={task.name}
+          className="form-control form-control-lg"
+        />
+      </div>
+      <div>
+        <button
+          className="btn btn-primary mt-2"
+          onClick={() => setTaskCompletion(id, !isComplete)}
+        >
+          {isComplete ? `Reopen` : `Complete`}
+        </button>
+      </div>
 
-    <div>
-      <select onChange={setTaskGroup} value={task.group}>
-        {groups.map(group => (
-          <option value={group.id} key={group.id}>
-            {group.name}
-          </option>
-        ))}
-      </select>
-    </div>
+      <div className="mt-3">
+        <select
+          onChange={setTaskGroup}
+          value={task.group}
+          className="form-control"
+        >
+          {groups.map(group => (
+            <option value={group.id} key={group.id}>
+              {group.name}
+            </option>
+          ))}
+        </select>
+      </div>
 
-    <div>
-      <Link to="/dashboard">
-        <button>Done</button>
-      </Link>
+      <div>
+        <Link to="/dashboard">
+          <button className="btn btn-primary mt-2">Done</button>
+        </Link>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const mapStateToProps = (state, ownProps) => {
   let id = ownProps.match.params.id;

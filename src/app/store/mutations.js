@@ -9,10 +9,13 @@ export const AUTHENTICATING = "AUTHENTICATING";
 export const AUTHENTICATED = "AUTHENTICATED";
 export const NOT_AUTHENTICATED = "NOT_AUTHENTICATED";
 export const SET_STATE = "SET_STATE";
+export const SET_SESSION = 'SET_SESSION'
+export const REFRECH_BROWSER = 'REFRECH_BROWSER'
 
-export const requestTaskCreation = groupId => ({
+export const requestTaskCreation = (groupId, ownerId) => ({
   type: REQUEST_TASK_CREATION,
-  groupId
+  groupId,
+  ownerId
 });
 
 export const createTask = (groupId, taskId, ownerId) => ({
@@ -55,4 +58,11 @@ export const processAuthUser = (status = AUTHENTICATING, session = null) => ({
 export const setState = (state = {}) => ({
   type: SET_STATE,
   state
+});
+export const setSession = (session = {}) => ({
+  type: SET_SESSION,
+  session
+});
+export const refrechBrowser = () => ({
+  type: REFRECH_BROWSER
 });

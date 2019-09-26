@@ -10,11 +10,12 @@ import * as mutations from "./mutations";
 
 export const store = createStore(
   combineReducers({
-    session(userSession = defaultState.session || {}, action) {
+    session(userSession = JSON.parse(sessionStorage.getItem('localSession')) || {}, action) {
       let { type, authenticated, session } = action;
       switch (type) {
-        case mutations.SET_STATE:
-          return {...userSession, id: action.state.session.id}
+        case mutations.SET_SESSION:
+          console.log(userSession)
+          return {...userSession, id: action.session.id}
         case mutations.REQUEST_AUTH_USER:
           return { ...userSession, authenticated: mutations.AUTHENTICATING };
         case mutations.PROCESSING_AUTH_USER:

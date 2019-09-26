@@ -38,6 +38,23 @@ export const updateTask = async task=>{
         await collection.updateOne({id}, {$set:{isComplete}})
     }
 }
+export const loadData = async (userId)=>{
+    let db = await connectDB()
+
+    let tasks = await db
+    .collection("tasks")
+    .find({ owner: userId })
+    .toArray();
+  let groups = await db
+    .collection("groups")
+    .find()
+    .toArray();
+
+  return {
+    tasks,
+    groups
+  };
+}
 
 app.post('/task/new', async (req, res)=>{
     let task = req.body.task
@@ -48,4 +65,11 @@ app.post('/task/update', async (req, res)=>{
     let task = req.body.task
     await updateTask(task)
     res.status(200).send()
+})
+
+app.get('/getData', async(req, res)=>{
+    let {userId} = req.query;
+    console.log(userId)
+    let state = await loadData(userId)
+    res.status(200).send({state})
 })

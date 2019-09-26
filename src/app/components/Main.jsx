@@ -13,7 +13,9 @@ const RouteGuard = Component => ({ match }) => {
   console.info("route guard...  ", match);
   if (!store.getState().session.authenticated) {
     return <Redirect to="/" />;
-  } {
+  } if(store.getState().session.authenticated && match.url === '/'){
+    return <Redirect to="/dashboard" />;
+  }{
     return <Component match={match} />;
   }
 };
@@ -23,7 +25,7 @@ export const Main = () => (
     <Provider store={store}>
       <div>
         <ConnectedNavigation />
-        <Route exact path="/" component={ConnectedLogin}/>
+        <Route exact path="/" render={RouteGuard(ConnectedLogin)}/>
         <Route
           exact
           path="/dashboard"

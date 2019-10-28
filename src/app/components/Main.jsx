@@ -11,11 +11,13 @@ import { Redirect } from "react-router";
 
 const RouteGuard = Component => ({ match }) => {
   console.info("route guard...  ", match);
-  if (!store.getState().session.authenticated) {
+  if (!store.getState().session.authenticated && match.url === '/') {
+    return <Component match={match} />;
+  } if(!store.getState().session.authenticated){
     return <Redirect to="/" />;
   } if(store.getState().session.authenticated && match.url === '/'){
     return <Redirect to="/dashboard" />;
-  }{
+  }else{
     return <Component match={match} />;
   }
 };
